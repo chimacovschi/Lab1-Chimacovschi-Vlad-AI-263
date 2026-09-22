@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    float a, b, c, xn, xk, dx, x, F;
+    int A, B, C;
+
+    printf("a b c Xnach Xkon dX: ");
+    scanf("%f%f%f%f%f%f", &a, &b, &c, &xn, &xk, &dx);
+
+    A = floor(a);
+    B = floor(b);
+    C = floor(c);
+
+    for (x = xn; x <= xk; x += dx)
+    {
+        if (x < 0 && b != 0)
+            F = -a * x * x;
+        else if (x > 0 && b == 0)
+            F = (a - x) / (c * x);
+        else
+            F = x / c;
+
+        if (((A ^ B) & ~(A | C)) != 0)
+            printf("x=%.2f F=%.2f\n", x, F);
+        else
+            printf("x=%.2f F=%.0f\n", x, F);
+    }
+
+    return 0;
+}
