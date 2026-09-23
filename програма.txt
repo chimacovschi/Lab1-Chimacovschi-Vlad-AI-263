@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    float a, b, c, xn, xk, dx, x, F;
+    int A, B, C;
+
+    printf("a b c Xnach Xkon dX: ");
+    if (scanf("%f%f%f%f%f%f", &a, &b, &c, &xn, &xk, &dx) != 6)
+    {
+        printf("Ошибка: неверный ввод данных\n");
+        return 1;
+    }
+
+    if (dx <= 0)
+    {
+        printf("Ошибка: dX должно быть больше 0\n");
+        return 1;
+    }
+
+    A = (int)floor(a);
+    B = (int)floor(b);
+    C = (int)floor(c);
+
+    printf("\n%8s %10s\n", "x", "F");
+    printf("-------------------\n");
+
+    for (x = xn; x <= xk + dx / 2.0f; x += dx)
+    {
+        int error = 0;
+
+        if (x < 0 && b != 0)
+            F = -a * x * x;
+        else if (x > 0 && b == 0)
+        {
+            if (c == 0)
+                error = 1;
+            else
+                F = (a - x) / (c * x);
+        }
+        else
+        {
+            if (c == 0)
+                error = 1;
+            else
+                F = x / c;
+        }
+
+        if (error)
+            printf("%8.2f %10s\n", x, "Дел. на 0");
+        else if (((A ^ B) & ~(A | C)) != 0)
+            printf("%8.2f %10.2f\n", x, F);
+        else
+            printf("%8.2f %10.0f\n", x, F);
+    }
+
+    return 0;
+}
